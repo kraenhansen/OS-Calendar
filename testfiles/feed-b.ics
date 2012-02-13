@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+PRODID:-//Adict//NONSGML Adict Calendar//EN
+VERSION:2.0
+BEGIN:VEVENT
+UID:SSLUG20120213fo0
+DTSTAMP:20120112T000000
+DTSTART:20120213T170000
+DTEND:20120213T210000
+TRANSP:TRANSPARENT
+SUMMARY:Sandkassemøde i Roskilde
+DESCRIPTION:Sandkassemøderne er åbne for alle. Vi leger med Linux i alle mulige afskygninger.  Medbring maskine eller hjælp andre med deres. Ideen er at vi alle skal blive lidt klogere hver gang vi mødes. Møderne koordineres via <news://news.sslug.dk/sslug.lokalt>.  Kontaktgruppen: sandkassen(på)sslug.dk
+LOCATION:RUC\, bygning 27.1 
+CLASS:PUBLIC
+CREATED:20120213T182653
+BEGIN:VALARM
+TRIGGER;VALUE=DURATION;RELATED=START:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Sandkassemøderne er åbne for alle. Vi leger med Linux i alle mulige afskygninger.  Medbring maskine eller hjælp andre med deres. Ideen er at vi alle skal blive lidt klogere hver gang vi mødes. Møderne koordineres via <news://news.sslug.dk/sslug.lokalt>.  Kontaktgruppen: sandkassen(på)sslug.dk
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:SSLUG20380119da0
+DTSTAMP:19990926T000000
+DTSTART:20380119T031400
+DTEND:20380119T031500
+TRANSP:TRANSPARENT
+SUMMARY:Panik\, kaos og hysteri
+DESCRIPTION:perl -e 'print scalar(gmtime(2147483647))' - d. 19/1 2038 kl. 03:14 løber Linux' ur over og alt bliver nulstillet  http://en.wikipedia.org/wiki/Year_2038_problem
+LOCATION:København
+CLASS:PUBLIC
+CREATED:20120213T182653
+BEGIN:VALARM
+TRIGGER;VALUE=DURATION;RELATED=START:-P1D
+ACTION:DISPLAY
+DESCRIPTION:perl -e 'print scalar(gmtime(2147483647))' - d. 19/1 2038 kl. 03:14 løber Linux' ur over og alt bliver nulstillet  http://en.wikipedia.org/wiki/Year_2038_problem
+END:VALARM
+END:VEVENT
+END:VCALENDAR
