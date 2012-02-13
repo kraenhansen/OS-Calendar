@@ -1,13 +1,15 @@
 
 === PHP iCal Merger ===
-PHP (5.3.5) Project for merging several iCal feeds into one. The implemented wrapper solves the following case: A couple of open source organisations wishes to have a shared calendar feed for users to follow for shared events.
-This project was started in winter 2012 as couple of open source organisations in denmark wanted a shared calendar.
+PHP (5.3.5) project that solves the following case: A couple of open source organisations wish to have a shared calendar feed for users to follow events that might be interesting for all.
+This project was started in winter 2012 as couple of open source organisations in denmark wanted a shared calendar, but as a design feature they wanted to change as little as possible on the practice of administration of the exsisting systems.
 The idea is that any organisation that wants to contribute to this shared calendar should simply announce an iCal feed, these feeds are then accessed by this project that merges all incomming feeds into a single pr. user configurable feed.
-To start with the feed will not be configurable, it will simply be a merge of all incomming feeds.
+For the first couple of versions the feed will not be configurable, it will simply be a merge of all incomming feeds.
 
 == Files ==
-ical-merger.php
-This file holds the main classes of the motor, that merges the ical feeds.
+merged_vcalendar.class.php
+This file holds the main classes of the motor.
+* merged_vcalendar that extends the iCalcreator class
+* ical_feed as a wrapper class for feeds
 
 wrapper.php
 This wraps the ical-merger into a simple browsable script.
