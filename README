@@ -1,5 +1,4 @@
-
-=== PHP iCal Merger ===
+=== OS-Calendar ===
 PHP (5.3.5) project that solves the following case: A couple of open source organisations wish to have a shared calendar feed for users to follow events that might be interesting for all.
 This project was started in winter 2012 as couple of open source organisations in denmark wanted a shared calendar, but as a design feature they wanted to change as little as possible on the practice of administration of the exsisting systems.
 The idea is that any organisation that wants to contribute to this shared calendar should simply announce an iCal feed, these feeds are then accessed by this project that merges all incomming feeds into a single pr. user configurable feed.

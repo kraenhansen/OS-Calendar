@@ -34,15 +34,15 @@ class iCalMergerTester extends Tester {
 	function simple_test() {
 		// Instantiate an array of iCal feeds.
 		$feeds = array(
-			new ical_feed(array('directory'=>'testfiles', 'filename'=>'feed-a.ics')),
-			new ical_feed(array('directory'=>'testfiles', 'filename'=>'feed-b.ics'))
+			new vcalendar(array('directory'=>'testfiles', 'filename'=>'feed-a.ics')),
+			new vcalendar(array('directory'=>'testfiles', 'filename'=>'feed-b.ics'))
 		);
 		$this->merger = new merged_vcalendar($feeds);
 		// Check that the merger is instantiated and has the right type.
 		assert('$this->merger instanceof vcalendar');
 		assert('$this->merger instanceof merged_vcalendar');
 		
-		$this->merger->parseFeeds();
+		$this->merger->parse_feeds();
 		$this->merger->saveCalendar();
 	}
 }
