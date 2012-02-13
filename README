@@ -1,0 +1,8 @@
+
+=== PHP iCal Merger ===
+PHP Project for merging several iCal feeds into one. The implemented wrapper solves the following case: A couple of open source organisations wishes to have a shared calendar feed for users to follow for shared events.
+This project was started in winter 2012 as couple of open source organisations in denmark wanted a shared calendar.
+The idea is that any organisation that wants to contribute to this shared calendar should simply announce an iCal feed, these feeds are then accessed by this project that merges all incomming feeds into a single pr. user configurable feed.
+To start with the feed will not be configurable, it will simply be a merge of all incomming feeds.
+
+License is still to be decided - please contact project admin for additional information
