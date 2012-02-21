@@ -10,12 +10,13 @@ require_once("iCalcreator-2.10.23/iCalcreator.class.php");
  */
 class merged_vcalendar extends vcalendar {
 	var $DEFAULT_CONFIG = array(
-		'unique_id' => 'opensource.dk',
-		'filename' => 'output.ics'
+		'unique_id' => 'opensource.dk'
 	);
 	var $feeds = array();
-	var $whitelist = NULL;
-	var $blacklist = null;
+	var $feed_whitelist = null;
+	var $feed_blacklist = null;
+	var $tag_whitelist = null;
+	var $tag_blacklist = null;
 	
 	function __construct($feeds = array(), $config = null) {
 		$this->feeds = $feeds;
@@ -31,11 +32,29 @@ class merged_vcalendar extends vcalendar {
 			$config = $this->DEFAULT_CONFIG;
 		}
 		parent::__construct($config);
-		if(array_key_exists('whitelist', $config) && is_array($config['whitelist'])) {
-			$this->whitelist = $config['whitelist'];
+		if(array_key_exists('feed_whitelist', $config) && is_array($config['feed_whitelist'])) {
+			$this->feed_whitelist = array();
+			foreach($config['feed_whitelist'] as $feed) {
+				$this->feed_whitelist[] = strtolower($feed);
+			}
 		}
-		if(array_key_exists('blacklist', $config) && is_array($config['blacklist'])) {
-			$this->blacklist = $config['blacklist'];
+		if(array_key_exists('feed_blacklist', $config) && is_array($config['feed_blacklist'])) {
+			$this->feed_blacklist = array();
+			foreach($config['feed_blacklist'] as $feed) {
+				$this->feed_blacklist[] = strtolower($feed);
+			}
+		}
+		if(array_key_exists('tag_whitelist', $config) && is_array($config['tag_whitelist'])) {
+			$this->tag_whitelist = array();
+			foreach($config['tag_whitelist'] as $tag) {
+				$this->tag_whitelist[] = strtolower($tag);
+			}
+		}
+		if(array_key_exists('tag_blacklist', $config) && is_array($config['tag_blacklist'])) {
+			$this->tag_blacklist = array();
+			foreach($config['tag_blacklist'] as $tag) {
+				$this->tag_blacklist[] = strtolower($tag);
+			}
 		}
 		// Check that all elements in $feeds are indeed instances of vcalendar.
 		foreach($this->feeds as $feed) {
@@ -45,10 +64,17 @@ class merged_vcalendar extends vcalendar {
 		}
 	}
 	
-	function parse_feeds() {
+	function parse() {
 		foreach($this->feeds as $feed) {
 			$feed->parse();
 			// Add all relevant components to our feed.
+			if (is_array($this->feed_blacklist) && in_array(strtolower($feed->unique_id), $this->feed_blacklist)) {
+				continue;
+			} elseif (is_array($this->feed_whitelist)) {
+				if(!in_array(strtolower($feed->unique_id), $this->feed_whitelist)) {
+					continue;
+				}
+			}
 			foreach($feed->components as &$component) {
 				if($this->is_component_included($feed, $component)) {
 					$this->components[] = $component;
@@ -64,38 +90,30 @@ class merged_vcalendar extends vcalendar {
 			return false;
 		}
 		
-		// If no elements in whitelist, we just skip it.
-		if(is_array($this->whitelist) && count($this->whitelist) > 0) {
-			$satisfied = false;
-			// We are whitelisting
-			foreach($this->whitelist as $tag) {
-				if($tag === $feed->unique_id) {
-					$satisfied = true;
-					break;
+		if(is_array($this->tag_blacklist) && count($this->tag_blacklist) > 0) {
+			// We are blacklisting
+			// Can we find the tag in the blacklist?
+			foreach($this->tag_blacklist as $tag) {
+				foreach($component->categories as $category) {
+					if(strtolower($category) == $tag) {
+						return false;
+					}
 				}
-				// Can we find the tag in the whitelist?
-				if(in_array($tag, $component->categories) === true) {
-					$satisfied = true;
-					break;
-				}
-			}
-			if(!$satisfied) {
-				// No tag from whitelist was found as category or unique_id on the event.
-				return false;
 			}
 		}
 		
-		if(is_array($this->blacklist) && count($this->blacklist) > 0) {
-			// We are blacklisting
-			foreach($this->blacklist as $tag) {
-				if($tag === $feed->unique_id) {
-					return false;
-				}
-				// Can we find the tag in the blacklist?
-				if(in_array($tag, $component->categories) !== false) {
-					return false;
+		// If no elements in whitelist, we just skip it.
+		if(is_array($this->tag_whitelist) && count($this->tag_whitelist) > 0) {
+			// We are whitelisting
+			// Can we find the tag in the whitelist?
+			foreach($this->tag_whitelist as $tag) {
+				foreach($component->categories as $category) {
+					if(strtolower($category) == $tag) {
+						return true;
+					}
 				}
 			}
+			return false;
 		}
 		
 		// Not either white nor blacklisting.
