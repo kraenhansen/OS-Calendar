@@ -74,7 +74,7 @@ class merged_vcalendar extends vcalendar {
 					break;
 				}
 				// Can we find the tag in the whitelist?
-				if(in_array($tag, $component->categories) !== false) {
+				if(in_array($tag, $component->categories) === true) {
 					$satisfied = true;
 					break;
 				}
